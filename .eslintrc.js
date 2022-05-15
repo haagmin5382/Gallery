@@ -4,15 +4,14 @@ module.exports = {
     es2021: true,
     node: true,
   },
+  extends: ['eslint:recommended', 'plugin:react/recommended'],
   parserOptions: {
-    //ECMAScript버전 설정
-    ecmaVersion: 12,
-    //parser의 export형태 설정
-    sourceType: "module",
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 'latest',
+    sourceType: 'module',
   },
-  extends: ["eslint:recommended", "plugin:react/recommended", "prettier"],
-  plugins: ["react", "prettier"],
-  rules: {
-    "no-unused-vars": "warn",
-  },
+  plugins: ['react'],
+  rules: {},
 };

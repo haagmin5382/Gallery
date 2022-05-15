@@ -1,8 +1,13 @@
-import logo from "./logo.svg";
-import "./App.css";
+import React from 'react';
+import './App.css';
+import Main from './pages/Main';
 
 function App() {
-  return <div>시작합니다.</div>;
+  return (
+    <div>
+      <Main />
+    </div>
+  );
 }
 
 export default App;
