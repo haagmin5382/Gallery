@@ -93,7 +93,7 @@ const Modal = ({ setModalOpened, img, imageIndex, setImageIndex }) => {
         </button>
         <ImageContainer src={img[imageIndex]} />
         <Index>
-          {imageIndex}/{img.length - 1}
+          {imageIndex + 1}/{img.length}
         </Index>
       </ModalContainer>
     </Background>

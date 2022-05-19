@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Modal from '../components/Modal';
 import { BsPlusCircleDotted } from 'react-icons/bs';
@@ -29,6 +29,7 @@ const ImagesContainer = styled.div`
     width: 100%;
     height: 40vh;
     cursor: pointer;
+    border-radius: 10px;
   }
   span {
     position: absolute; // 이미지 위에 span 태그로 된 텍스트가 올라가게 된다.
@@ -39,7 +40,6 @@ const ImagesContainer = styled.div`
     cursor: pointer;
   }
 `;
-
 const importAllImages = image => {
   return image.keys().map(image);
 };
@@ -60,7 +60,6 @@ const Gallery = () => {
       );
     }),
   ); // 이미지 주소의 배열
-
   const handleImg = e => {
     setImg([URL.createObjectURL(e.target.files[0]), ...img]);
   }; // 사진 추가
@@ -68,24 +67,30 @@ const Gallery = () => {
   const deleteImg = index => {
     setImg([...img.slice(0, index), ...img.slice(index + 1, img.length)]);
   }; // 사진 삭제
-  // useEffect(() => {
-  //   const options = { threshold: 1.0 };
-  //   const callback = (entries, observer) => {
-  //     entries.forEach(entry => {
-  //       if (entry.isIntersecting) {
-  //         console.log('화면에 나타남');
-  //         observer.unobserve(entry.target);
-  //       } else {
-  //         console.log('화면에서 사라짐');
-  //       }
-  //     });
-  //   };
-  //   const observer = new IntersectionObserver(callback, options);
-  //   const target = document.querySelector('.photo7');
-  //   if (target !== null) {
-  //     observer.observe(target);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const imgs = document.querySelectorAll('.photo');
+    const lazyImageObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          const lazyImage = entry.target;
+          const bound = lazyImage.getBoundingClientRect();
+          // console.log(lazyImage.src);
+          console.log(lazyImage.dataset.src);
+          // console.log(bound);
+          setTimeout(() => {
+            if (bound.top <= window.innerHeight && bound.bottom >= 0) {
+              lazyImage.src = lazyImage.dataset.src;
+              lazyImage.classList.remove('photo');
+              lazyImageObserver.unobserve(lazyImage);
+            }
+          }, 500);
+        }
+      });
+    });
+    imgs.forEach(function (lazyImage) {
+      lazyImageObserver.observe(lazyImage);
+    });
+  }, []);
 
   return (
     <div>
@@ -99,14 +104,15 @@ const Gallery = () => {
             type="file"
           />
         </ImageRegister>
+
         {img.length === 0
           ? null
           : img.map((el, idx) => {
               return (
                 <ImagesContainer key={idx}>
                   <img
-                    className={`photo${idx}`}
-                    src={el}
+                    className="photo"
+                    data-src={el}
                     onClick={() => {
                       setModalOpened(!ModalOpened);
                       setImageIndex(idx);
@@ -122,7 +128,6 @@ const Gallery = () => {
                 </ImagesContainer>
               );
             })}
-
         {ModalOpened ? (
           <Modal
             setModalOpened={setModalOpened}
