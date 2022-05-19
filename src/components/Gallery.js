@@ -71,16 +71,15 @@ const Gallery = () => {
     const imgs = document.querySelectorAll('.photo');
     const lazyImageObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
+        const lazyImage = entry.target;
+        const bound = lazyImage.getBoundingClientRect(); // target의 위치 구하기
+        console.log(window.innerHeight);
+        console.log(lazyImage);
+        console.log(bound.top, bound.bottom); // 화면 상단부터 대상의 처음 위치 값, 화면 상단부터 대상의 끝 위치 값
         if (entry.isIntersecting) {
-          const lazyImage = entry.target;
-          const bound = lazyImage.getBoundingClientRect();
-          // console.log(lazyImage.src);
-          console.log(lazyImage.dataset.src);
-          // console.log(bound);
           setTimeout(() => {
             if (bound.top <= window.innerHeight && bound.bottom >= 0) {
               lazyImage.src = lazyImage.dataset.src;
-              lazyImage.classList.remove('photo');
               lazyImageObserver.unobserve(lazyImage);
             }
           }, 500);
@@ -90,7 +89,7 @@ const Gallery = () => {
     imgs.forEach(function (lazyImage) {
       lazyImageObserver.observe(lazyImage);
     });
-  }, []);
+  }, [img]);
 
   return (
     <div>
