@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { images } from './Gallery';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 
@@ -54,17 +53,17 @@ const Index = styled.div`
   font-size: 30px;
 `;
 
-const Modal = ({ setModalOpened, img, photo, imageIndex, setImageIndex }) => {
+const Modal = ({ setModalOpened, photo, imageIndex, setImageIndex }) => {
   const goPrevious = () => {
     if (imageIndex > 0) {
       setImageIndex(imageIndex - 1);
     } else {
-      setImageIndex(images.length - 1);
+      setImageIndex(photo.length - 1);
     }
   };
 
   const goNext = () => {
-    if (images.length - 1 > imageIndex) {
+    if (photo.length - 1 > imageIndex) {
       setImageIndex(imageIndex + 1);
     } else {
       setImageIndex(0);
@@ -93,7 +92,7 @@ const Modal = ({ setModalOpened, img, photo, imageIndex, setImageIndex }) => {
         </button>
         <ImageContainer src={photo[imageIndex]} />
         <Index>
-          {imageIndex + 1}/{img.length}
+          {imageIndex + 1}/{photo.length}
         </Index>
       </ModalContainer>
     </Background>
@@ -103,7 +102,6 @@ const Modal = ({ setModalOpened, img, photo, imageIndex, setImageIndex }) => {
 Modal.propTypes = {
   setModalOpened: PropTypes.func,
   backgroundHeight: PropTypes.number,
-  img: PropTypes.any,
   photo: PropTypes.any,
   imageIndex: PropTypes.number,
   setImageIndex: PropTypes.func,

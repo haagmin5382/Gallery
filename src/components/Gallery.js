@@ -67,6 +67,7 @@ const Gallery = () => {
       URL.createObjectURL(e.target.files[0]),
       ...photo,
     ]);
+    e.target.value = ''; // 같은 파일을 연속으로 올릴 수 있도록 reset 해주는 역할
     console.log('img', img);
     console.log('photo', photo);
   }; // 사진 추가
@@ -109,7 +110,7 @@ const Gallery = () => {
       lazyImageObserver.observe(lazyImage);
     });
   }, [photo]);
-
+  console.log(photo[0]);
   return (
     <div>
       <GalleryContainer>
