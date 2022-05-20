@@ -65,15 +65,17 @@ const Gallery = () => {
     setImg([URL.createObjectURL(e.target.files[0]), ...img]);
     window.localStorage.setItem('image', [
       URL.createObjectURL(e.target.files[0]),
-      ...img,
+      ...photo,
     ]);
+    console.log('img', img);
+    console.log('photo', photo);
   }; // 사진 추가
 
   const deleteImg = index => {
     setImg([...img.slice(0, index), ...img.slice(index + 1, img.length)]);
     window.localStorage.setItem('image', [
-      ...img.slice(0, index),
-      ...img.slice(index + 1, img.length),
+      ...photo.slice(0, index),
+      ...photo.slice(index + 1, img.length),
     ]);
   }; // 사진 삭제
   let photo = [...img];
@@ -91,12 +93,15 @@ const Gallery = () => {
 
         // console.log(bound.top, bound.bottom); // 화면 상단부터 대상의 처음 위치 값, 화면 상단부터 대상의 끝 위치 값
         if (entry.isIntersecting) {
+          lazyImage.src =
+            process.env.PUBLIC_URL +
+            './mike-van-den-bos-jf1EomjlQi0-unsplash.jpg';
           setTimeout(() => {
             if (bound.top <= window.innerHeight && bound.bottom >= 0) {
               lazyImage.src = lazyImage.dataset.src;
               lazyImageObserver.unobserve(lazyImage);
             }
-          }, 500);
+          }, 300);
         }
       });
     });
