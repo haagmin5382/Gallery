@@ -54,7 +54,7 @@ const Index = styled.div`
   font-size: 30px;
 `;
 
-const Modal = ({ setModalOpened, img, imageIndex, setImageIndex }) => {
+const Modal = ({ setModalOpened, img, photo, imageIndex, setImageIndex }) => {
   const goPrevious = () => {
     if (imageIndex > 0) {
       setImageIndex(imageIndex - 1);
@@ -91,7 +91,7 @@ const Modal = ({ setModalOpened, img, imageIndex, setImageIndex }) => {
         <button className="rightButton" onClick={() => goNext()}>
           <AiOutlineArrowRight size="50" />
         </button>
-        <ImageContainer src={img[imageIndex]} />
+        <ImageContainer src={photo[imageIndex]} />
         <Index>
           {imageIndex + 1}/{img.length}
         </Index>
@@ -104,6 +104,7 @@ Modal.propTypes = {
   setModalOpened: PropTypes.func,
   backgroundHeight: PropTypes.number,
   img: PropTypes.any,
+  photo: PropTypes.any,
   imageIndex: PropTypes.number,
   setImageIndex: PropTypes.func,
 };

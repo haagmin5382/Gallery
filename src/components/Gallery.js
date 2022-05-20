@@ -60,22 +60,36 @@ const Gallery = () => {
       );
     }),
   ); // 이미지 주소의 배열
+
   const handleImg = e => {
     setImg([URL.createObjectURL(e.target.files[0]), ...img]);
+    window.localStorage.setItem('image', [
+      URL.createObjectURL(e.target.files[0]),
+      ...img,
+    ]);
   }; // 사진 추가
 
   const deleteImg = index => {
     setImg([...img.slice(0, index), ...img.slice(index + 1, img.length)]);
+    window.localStorage.setItem('image', [
+      ...img.slice(0, index),
+      ...img.slice(index + 1, img.length),
+    ]);
   }; // 사진 삭제
+  let photo = [...img];
+  if (window.localStorage.getItem('image')) {
+    photo = window.localStorage.getItem('image').split(',');
+    console.log(photo);
+  }
+
   useEffect(() => {
     const imgs = document.querySelectorAll('.photo');
     const lazyImageObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         const lazyImage = entry.target;
         const bound = lazyImage.getBoundingClientRect(); // target의 위치 구하기
-        console.log(window.innerHeight);
-        console.log(lazyImage);
-        console.log(bound.top, bound.bottom); // 화면 상단부터 대상의 처음 위치 값, 화면 상단부터 대상의 끝 위치 값
+
+        // console.log(bound.top, bound.bottom); // 화면 상단부터 대상의 처음 위치 값, 화면 상단부터 대상의 끝 위치 값
         if (entry.isIntersecting) {
           setTimeout(() => {
             if (bound.top <= window.innerHeight && bound.bottom >= 0) {
@@ -89,7 +103,7 @@ const Gallery = () => {
     imgs.forEach(function (lazyImage) {
       lazyImageObserver.observe(lazyImage);
     });
-  }, [img]);
+  }, [photo]);
 
   return (
     <div>
@@ -104,9 +118,9 @@ const Gallery = () => {
           />
         </ImageRegister>
 
-        {img.length === 0
+        {photo.length === 0
           ? null
-          : img.map((el, idx) => {
+          : photo.map((el, idx) => {
               return (
                 <ImagesContainer key={idx}>
                   <img
@@ -133,6 +147,7 @@ const Gallery = () => {
             setImageIndex={setImageIndex}
             imageIndex={imageIndex}
             img={img}
+            photo={photo}
           />
         ) : null}
       </GalleryContainer>
