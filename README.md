@@ -1,4 +1,5 @@
 # 배포 주소
+
 https://musical-ganache-6661e8.netlify.app/
 
 # 사진을 저장하고 볼 수 있는 갤러리
@@ -12,7 +13,7 @@ https://musical-ganache-6661e8.netlify.app/
 
 ### `첫번째 +가 들어있는 영역을 클릭해서 사진을 선택하고 저장하는 기능`
 
-- 버튼을 눌러서 사진을 선택하면 해당 사진이 갤러리 내에 들어온다. localStorage를 이용해서 저장한다.
+- 버튼을 눌러서 사진을 선택하면 해당 사진이 갤러리 내에 들어온다. sessionStorage 이용해서 저장한다.
 
 ### `사진 삭제 기능`
 
