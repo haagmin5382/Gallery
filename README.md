@@ -1,6 +1,3 @@
-# 배포 주소
-
-https://silly-clafoutis-05190e.netlify.app/
 
 # 사진을 저장하고 볼 수 있는 갤러리
 
