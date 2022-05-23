@@ -63,7 +63,7 @@ const Gallery = () => {
 
   const handleImg = e => {
     setImg([URL.createObjectURL(e.target.files[0]), ...img]);
-    window.localStorage.setItem('image', [
+    window.sessionStorage.setItem('image', [
       URL.createObjectURL(e.target.files[0]),
       ...photo,
     ]);
@@ -74,14 +74,14 @@ const Gallery = () => {
 
   const deleteImg = index => {
     setImg([...img.slice(0, index), ...img.slice(index + 1, img.length)]);
-    window.localStorage.setItem('image', [
+    window.sessionStorage.setItem('image', [
       ...photo.slice(0, index),
       ...photo.slice(index + 1, img.length),
     ]);
   }; // 사진 삭제
   let photo = [...img];
-  if (window.localStorage.getItem('image')) {
-    photo = window.localStorage.getItem('image').split(',');
+  if (window.sessionStorage.getItem('image')) {
+    photo = window.sessionStorage.getItem('image').split(',');
     console.log(photo);
   }
 
@@ -110,7 +110,7 @@ const Gallery = () => {
       lazyImageObserver.observe(lazyImage);
     });
   }, [photo]);
-  console.log(photo[0]);
+
   return (
     <div>
       <GalleryContainer>
