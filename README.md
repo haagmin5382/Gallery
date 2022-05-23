@@ -1,6 +1,6 @@
 # 배포 주소
 
-https://musical-ganache-6661e8.netlify.app/
+https://silly-clafoutis-05190e.netlify.app/
 
 # 사진을 저장하고 볼 수 있는 갤러리
 
