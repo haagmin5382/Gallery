@@ -63,29 +63,29 @@ const Gallery = () => {
 
   const handleImg = e => {
     setImg([URL.createObjectURL(e.target.files[0]), ...img]);
-    window.sessionStorage.setItem('image', [
+    window.localStorage.setItem('image', [
       URL.createObjectURL(e.target.files[0]),
       ...photo,
     ]);
     e.target.value = ''; // 같은 파일을 연속으로 올릴 수 있도록 reset 해주는 역할
-    console.log('img', img);
-    console.log('photo', photo);
+    // console.log('img', img);
+    // console.log('photo', photo);
   }; // 사진 추가
 
   const deleteImg = index => {
     setImg([...img.slice(0, index), ...img.slice(index + 1, img.length)]);
-    window.sessionStorage.setItem('image', [
+    window.localStorage.setItem('image', [
       ...photo.slice(0, index),
       ...photo.slice(index + 1, img.length),
     ]);
   }; // 사진 삭제
   let photo = [...img];
-  if (window.sessionStorage.getItem('image')) {
-    photo = window.sessionStorage.getItem('image').split(',');
-    console.log(photo);
+  if (window.localStorage.getItem('image')) {
+    photo = window.localStorage.getItem('image').split(',');
   }
 
   useEffect(() => {
+    console.log(photo[0]);
     const imgs = document.querySelectorAll('.photo');
     const lazyImageObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -94,9 +94,6 @@ const Gallery = () => {
 
         // console.log(bound.top, bound.bottom); // 화면 상단부터 대상의 처음 위치 값, 화면 상단부터 대상의 끝 위치 값
         if (entry.isIntersecting) {
-          lazyImage.src =
-            process.env.PUBLIC_URL +
-            './mike-van-den-bos-jf1EomjlQi0-unsplash.jpg';
           setTimeout(() => {
             if (bound.top <= window.innerHeight && bound.bottom >= 0) {
               lazyImage.src = lazyImage.dataset.src;
