@@ -64,6 +64,8 @@ const Gallery = () => {
   ); // 이미지 주소의 배열
 
   const handleImg = e => {
+    console.log(URL.createObjectURL(e.target.files[0]));
+    console.log(photo);
     setImg([URL.createObjectURL(e.target.files[0]), ...img]);
     window.localStorage.setItem('image', [
       URL.createObjectURL(e.target.files[0]),
