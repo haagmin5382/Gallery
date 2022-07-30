@@ -12,9 +12,9 @@ const GalleryContainer = styled.section`
 const ImageRegister = styled.label`
   width: 98%;
   height: 39vh;
-  margin-left: 1%;
+  margin: 1%;
   border: 2px dotted black;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   text-align: center;
   line-height: 39vh;
   font-size: 30px;
@@ -25,11 +25,13 @@ const ImagesContainer = styled.div`
   position: relative;
   width: 100%;
   height: 40vh;
+  border: 2px solid white;
+  /* border-radius: 10px; */
   img {
     width: 100%;
     height: 40vh;
     cursor: pointer;
-    border-radius: 10px;
+    /* border-radius: 10px; */
   }
   span {
     position: absolute; // 이미지 위에 span 태그로 된 텍스트가 올라가게 된다.
@@ -85,7 +87,6 @@ const Gallery = () => {
   }
 
   useEffect(() => {
-    console.log(photo[0]);
     const imgs = document.querySelectorAll('.photo');
     const lazyImageObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
